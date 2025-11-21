@@ -1,0 +1,1 @@
+yt-dlp -x --audio-format wav -o "%(title)s.%(ext)s" https://www.youtube.com/watch?v=dQw4w9WgXcQ
