@@ -6,7 +6,7 @@ import re
 BASE_PATH = "."
 AUDIO_ROOT = os.path.join(BASE_PATH, "Audios")
 
-SOURCE_FOLDER = os.path.join(AUDIO_ROOT, "Spanish")
+SOURCE_FOLDER = os.path.join(AUDIO_ROOT, "tesccc")
 OUTPUT_FOLDER = os.path.join(AUDIO_ROOT, "Spanish_Final")
 
 LANG_PREFIX = "Sp"
@@ -69,7 +69,7 @@ def process_data():
         speakers = [d for d in os.listdir(gender_src_path)
                     if os.path.isdir(os.path.join(gender_src_path, d))]
 
-        speaker_id = 1
+        speaker_id = 4
 
         for speaker_name in speakers:
             print(f"\n👤 Locuteur {speaker_id} ({gender}) : {speaker_name}")

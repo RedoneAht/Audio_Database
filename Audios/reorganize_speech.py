@@ -163,7 +163,7 @@ def preview_changes(source_root):
 if __name__ == "__main__":
     # CONFIGURATION - Update these paths
     SOURCE_ROOT = "./French"  # Path to your current French folder
-    DEST_ROOT = "./French_new"  # Path where new structure will be created
+    DEST_ROOT = "./French"  # Path where new structure will be created
     
     print("Speech Dataset Reorganizer")
     print("=" * 60)
