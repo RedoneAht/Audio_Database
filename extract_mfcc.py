@@ -7,19 +7,19 @@ import scipy.io.wavfile as wav
 import python_speech_features as psf
 
 def process_audio_file(input_wav, output_mfcc):
-    # Load audio
+    # Charger le fichier audio
     audio = AudioSegment.from_wav(input_wav)
 
-    # Convert stereo → mono directly (no saving)
+    # Convertur stereo → mono 
     if audio.channels == 2:
         audio = audio.set_channels(1)
 
-    # Convert AudioSegment → raw array + sample rate
+    # Extraire le signal et le taux d'échantillonnage
     signal = np.array(audio.get_array_of_samples())
     sr = audio.frame_rate
 
     if (sr <= 16000):
-        _fft = 1024
+        n_fft = 1024
     else:
         n_fft = 2048
 
@@ -35,20 +35,14 @@ def process_audio_file(input_wav, output_mfcc):
     gmm = GaussianMixture(n_components=2, random_state=42, init_params="k-means++")
     gmm.fit(energies_2d)
     Moyennes = gmm.means_.ravel() 
-    #Ecart_Types = np.sqrt(gmm.covariances_.ravel())
-    #Poids = gmm.weights_.ravel()
-    #print(f"Les moyennes des deux gaussiennes sont : {Moyennes}")
-    #print(f"Les poids des deux gaussiennes sont : {Poids}")
 
     # Répartition des énergies en deux classes en utilisant Kmeans
     kmeans = KMeans(n_clusters=2, n_init='auto', random_state=0)
     kmeans.fit(energies_2d)
     Centers = kmeans.cluster_centers_
-    #print(f"Les barycentres des deux classes sont : {Centers.ravel()}")
 
     # Fusionner les MFCCs et les Deltas dans les vecteurs des features 
     features = np.hstack((mfccs, Deltas))
-    #print(np.shape(features))
 
     ## Suppression du silence
     threshold = np.mean(Moyennes)
@@ -82,7 +76,7 @@ def process_dataset(root_input, root_output):
 
 
 if __name__ == "__main__":
-    input_root = r"./Audios"          # ← Your dataset
-    output_root = r"./MFCC"    # ← New folder for MFCCs
+    input_root = r"./Audios/Speakers/Female/Souhaila"          # ← Your dataset
+    output_root = r"./MFCC/Speakers/Female/Souhaila"    # ← New folder for MFCCs
 
     process_dataset(input_root, output_root)
